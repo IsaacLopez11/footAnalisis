@@ -5,14 +5,14 @@ from ui.interfaz_console import Interfaz
 from models.jugador import Jugador
 from models.partido import Partido
 from models.equipo import Equipo
-
+from bd.repositorio import inicializar_bd
+from bd.repositorio import inicializar_bd, guardar_equipo, obtener_equipos, guardar_jugador, obtener_jugadores
 
 # === Ejemplo de uso ===
 if __name__ == "__main__":
     #Instancia interfaz
     # interfaz = Interfaz()
     # interfaz.menu()
-
     # Creamos jugadores
     j1 = Jugador("Luis", "DC", 75)
     j2 = Jugador("Carlos", "MC", 68)
@@ -47,6 +47,18 @@ if __name__ == "__main__":
 
     # partido = Partido(equipo1=equipo1,equipo2=equipo2)
     # partido.simular_partido()
+    inicializar_bd()
+
+    guardar_equipo("Club Python")
+    equipos = obtener_equipos()
+    print("Equipos:", equipos)
+
+    primer_equipo_id = equipos[0][0]
+    guardar_jugador("Luis", "DC", 80, primer_equipo_id)
+
+    jugadores = obtener_jugadores(primer_equipo_id)
+    print("Jugadores:", jugadores)
+
     juego = Interfaz()
     juego.equipos.append(equipo1)
     juego.equipos.append(equipo2)
