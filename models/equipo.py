@@ -11,7 +11,7 @@ class Equipo:
         conn = obtener_conexion()
         cursor = conn.cursor()
         cursor.execute("SELECT id, nombre, posicion, habilidad FROM jugadores WHERE equipo_id = ?", (self.id,))
-        jugadores = [Jugador(id=j[0], nombre=j[1], posicion=j[2], habilidad=j[3]) for j in cursor.fetchall()]
+        jugadores = [Jugador( nombre=j[1], posicion=j[2], habilidad=j[3]) for j in cursor.fetchall()]
         conn.close()
         return jugadores
 

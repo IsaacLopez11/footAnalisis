@@ -113,7 +113,7 @@ class Interfaz:
 
     def mostrar_plantillas(self):
         for equipo in self.equipos:
-            equipo.mostrar_plantilla()
+            equipo.cargar_jugadores()
 
     def simular_partido(self):
         if len(self.equipos) < 2:
