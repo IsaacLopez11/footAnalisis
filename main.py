@@ -2,6 +2,8 @@
 #   FOOTMANAGER v0.1
 # =========================
 from models.equipo import Equipo
+from models.jugadores import Jugador
+from models.ligas import Liga
 
 # === Ejemplo de uso ===
 if __name__ == "__main__":
@@ -54,8 +56,30 @@ if __name__ == "__main__":
 #     jugadores = obtener_jugadores(primer_equipo_id)
 #     print("Jugadores:", jugadores)
 #      equipo = Equipo(nombre="Brisas del Lago", ciudad="Punta Gorda", estadio="La cancha del Liceo", capacidad_estadio=1000, liga_id=1)
-     equipo = Equipo()
-#      equipo.listar_equipos()
-     equipo.obtener_equipo_por_id(1)
+#      equipo = Equipo()
+# #      equipo.listar_equipos()
+#      equipo.obtener_equipo_por_id(1)
+
+
+#      # nuevo = Jugador("Messi", 36, "Delantero", 1)
+#      nuevo = Jugador("Messi", 36, "Delantero", 1)
+#      # nuevo.crear_jugador()
+#      actualizado = Jugador("Lionel Messi", 36, "Delantero", 1)
+#      actualizado.editar_jugador(2)  # ahora debería funcionar
+
+     # Crear una liga
+     # nueva = Liga("Primera División", 2025)
+     # nueva.crear_liga()
+
+     # Listar ligas
+     ligas = Liga()
+     ligas.listar_ligas()
+
+     # Editar liga
+     # actualizada = Liga("Primera División", 2026)
+     # actualizada.editar_liga(2)
+
+     # Eliminar liga
+     ligas.eliminar_liga(1)
 
 
