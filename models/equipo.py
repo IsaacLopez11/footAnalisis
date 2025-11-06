@@ -1,19 +1,31 @@
-from bd.conexion import obtener_conexion
-from models.jugador import Jugador
+# models/equipo.py
+from models.base_model import BaseModel as BM
 
-class Equipo:
-    def __init__(self, id, nombre):
-        self.id = id
+class Equipo(BM):
+    tabla = "equipos"
+
+    def __init__(self,  nombre=None, ciudad=None, estadio=None, capacidad_estadio=None, liga_id=None):
+        super().__init__()  # nombre de la tabla
         self.nombre = nombre
-        self.jugadores = self.cargar_jugadores()
+        self.ciudad = ciudad
+        self.estadio = estadio
+        self.capacidad_estadio = capacidad_estadio
+        self.liga_id = liga_id
 
-    def cargar_jugadores(self):
-        conn = obtener_conexion()
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, nombre, posicion, habilidad FROM jugadores WHERE equipo_id = ?", (self.id,))
-        jugadores = [Jugador( nombre=j[1], posicion=j[2], habilidad=j[3]) for j in cursor.fetchall()]
-        conn.close()
-        return jugadores
+    def listar_equipos(self):
+        equipos = BM.obtener_todos(self.tabla)
+        print( equipos)
 
-    def __str__(self):
-        return f"{self.nombre} ({len(self.jugadores)} jugadores)"
+    def crear_equipo(self):
+        BM.crear(self.tabla,self.__dict__)
+    
+    def eliminar_equipo(self, id_equipo):
+        BM.eliminar(id_equipo)
+
+    def editar_equipo(self, id_equipo):
+        BM.actualizar(id_equipo, self.__dict__)
+
+    def obtener_equipo_por_id(self, id):
+        print( BM.obtener_por_id(self.tabla, id))
+
+

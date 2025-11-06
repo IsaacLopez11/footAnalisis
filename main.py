@@ -1,12 +1,7 @@
 # =========================
 #   FOOTMANAGER v0.1
 # =========================
-from ui.interfaz_console import Interfaz
-from models.jugador import Jugador
-from models.partido import Partido
 from models.equipo import Equipo
-from bd.repositorio import inicializar_bd
-from bd.repositorio import inicializar_bd, guardar_equipo, obtener_equipos, guardar_jugador, obtener_jugadores
 
 # === Ejemplo de uso ===
 if __name__ == "__main__":
@@ -58,11 +53,9 @@ if __name__ == "__main__":
 
 #     jugadores = obtener_jugadores(primer_equipo_id)
 #     print("Jugadores:", jugadores)
-      equipo = Equipo(2,"Atlético Nacional")
-      
+#      equipo = Equipo(nombre="Brisas del Lago", ciudad="Punta Gorda", estadio="La cancha del Liceo", capacidad_estadio=1000, liga_id=1)
+     equipo = Equipo()
+#      equipo.listar_equipos()
+     equipo.obtener_equipo_por_id(1)
 
-      juego = Interfaz()
-      juego.equipos.append(equipo)
-#     juego.equipos.append(equipo1)
-#     juego.equipos.append(equipo2)
-      juego.menu()
+
