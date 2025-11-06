@@ -42,13 +42,18 @@ class BaseModel:
         return registro
 
     
-    def actualizar(cls, id, **datos):
+    def actualizar(cls, id, datos:dict):
         """Actualiza un registro existente."""
         conn = obtener_conexion()
         cur = conn.cursor()
 
-        set_clause = ", ".join([f"{campo} = ?" for campo in datos.keys()])
-        valores = tuple(datos.values()) + (id,)
+        # Filtrar datos que sean None o que no existan en la tabla
+        cur.execute(f"PRAGMA table_info({cls})")
+        columnas_tabla = [col[1] for col in cur.fetchall()]
+        datos_filtrados = {k: v for k, v in datos.items() if k in columnas_tabla}
+
+        set_clause = ", ".join([f"{campo} = ?" for campo in datos_filtrados.keys()])
+        valores = tuple(datos_filtrados.values()) + (id,)
 
         query = f"UPDATE {cls} SET {set_clause} WHERE id = ?"
         cur.execute(query, valores)
@@ -57,7 +62,7 @@ class BaseModel:
         conn.close()
         print(f"Registro con ID {id} actualizado en {cls}.")
 
-    
+        
     def eliminar(cls, id):
         """Elimina un registro por ID."""
         conn = obtener_conexion()
