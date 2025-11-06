@@ -1,11 +1,11 @@
 from models.base_model import BaseModel as BM
-
+from bd.conexion import obtener_conexion
 class AtributosJugador(BM):
     tabla = "atributos_jugador"
 
     def __init__(self, jugador_id=None,
                  desmarques=None, remate=None, tiros_lejanos=None,   # Ataque
-                 tecnica=None, pase=None, tiro_lejano_medio=None,     # Medio
+                 tecnica=None, pase=None, tiro_lejano=None,     # Medio
                  marcaje=None, entradas=None,                          # Defensa
                  colocacion=None, vision=None, agresividad=None,       # Mentales
                  agarre=None, despeje=None, mando_area=None):         # Portero
@@ -20,7 +20,7 @@ class AtributosJugador(BM):
         # Medio
         self.tecnica = tecnica
         self.pase = pase
-        self.tiro_lejano_medio = tiro_lejano_medio
+        self.tiro_lejano = tiro_lejano
 
         # Defensa
         self.marcaje = marcaje
@@ -38,7 +38,7 @@ class AtributosJugador(BM):
 
     # Crear atributos
     def crear_atributos(self):
-        BM.crear(self.__dict__)
+        BM.crear(self.tabla,self.__dict__)
 
     # Listar atributos
     def listar_atributos(self):

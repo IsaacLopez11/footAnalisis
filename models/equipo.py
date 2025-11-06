@@ -28,4 +28,5 @@ class Equipo(BM):
     def obtener_equipo_por_id(self, id):
         print( BM.obtener_por_id(self.tabla, id))
 
+    
 
