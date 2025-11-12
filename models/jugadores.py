@@ -25,3 +25,20 @@ class Jugador(BM):
     # Editar jugador por ID
     def editar_jugador(self, id_jugador):
         BM.actualizar(self.tabla,id_jugador, self.__dict__)
+
+    def obtener_jugador_por_id(self, id):
+        return BM.obtener_por_id(self.tabla, id)
+
+
+    def listar_por_equipo(self, id_equipo):
+        sql = "SELECT * FROM jugadores WHERE equipo_id = ?"
+        return BM.consulta_general(sql, (id_equipo,))
+
+    def obtener_atributos(self, id_jugador):
+        sql = "SELECT * FROM atributos_jugador WHERE jugador_id = ?"
+        return BM.consulta_general(sql, (id_jugador,))
+
+    def obtener_estadisticas(self, id_jugador):
+        sql = "SELECT * FROM estadisticas_jugador WHERE jugador_id = ?"
+        return BM.consulta_general(sql, (id_jugador,))
+

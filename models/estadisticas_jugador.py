@@ -34,10 +34,18 @@ class EstadisticasJugador(BM):
         BM.eliminar(id_estadistica)
 
     # Obtener estadísticas de un jugador específico
-    def obtener_por_jugador(self, jugador_id):
+    def obtener_estadisticas_por_jugador(self, jugador_id):
         conn = obtener_conexion()
         cur = conn.cursor()
         cur.execute(f"SELECT * FROM {self.tabla} WHERE jugador_id = ?", (jugador_id,))
         resultado = cur.fetchall()
         conn.close()
         return resultado
+    
+    def obtener_estadisticas_de_jugador_por_id_partido(self, id_partido, id_jugador):
+        sql = "SELECT * FROM estadisticas_jugador WHERE partido_id = ? AND jugador_id = ?"
+        return BM.consulta_general(sql, (id_partido, id_jugador))
+
+    def obtener_estadisticas_de_todos_jugadores_por_id_partido(self, id_partido, id_jugador):
+        sql = "SELECT * FROM estadisticas_jugador WHERE partido_id = ? AND jugador_id = ?"
+        return BM.consulta_general(sql, (id_partido, id_jugador))

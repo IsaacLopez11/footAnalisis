@@ -37,3 +37,7 @@ class EstadisticasPartido(BM):
 
     def eliminar_estadistica(self, id_estadistica):
         BM.eliminar(id_estadistica)
+
+    def listar_estadisticas_por_partido(self, id_partido):
+        sql="SELECT * FROM estadisticas_partido where id_partido=?", (id_partido,)
+        BM.consulta_general(sql, (id_partido ))

@@ -29,7 +29,12 @@ class Equipo(BM):
     def obtener_equipo_por_id(self, id):
         return BM.obtener_por_id(self.tabla, id)
 
-    def listar_jugadores(self):
-        return 0
+    def listar_jugadores(self, id_equipo):
+        sql = "SELECT * FROM jugadores WHERE equipo_id = ?"
+        params = (id_equipo,)
+        jugadores = BM.consulta_general(sql, params)
+        print("jugadores: ")
+        print(jugadores)
+        return [dict(jugador) for jugador in jugadores]
     
 

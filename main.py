@@ -14,9 +14,14 @@ if __name__ == "__main__":
     
     equipo = Equipo().listar_equipos()
     print(equipo)
-    equipo = Equipo().obtener_equipo_por_id(3)
+    equipo = Equipo().obtener_equipo_por_id(2)
     print(equipo)
-    print(equipo['nombre'])
+    print(equipo['id'])
+    equipo_jugar = Equipo()
+    equipo_jugar.id = equipo['id']
+    print(equipo_jugar.id)
+    equipo_jugar.listar_jugadores(2)
+    print( )
     #Instancia interfaz
     # interfaz = Interfaz()
     # interfaz.menu()

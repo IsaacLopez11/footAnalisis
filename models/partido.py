@@ -30,3 +30,6 @@ class Partido(BM):
     # Eliminar partido
     def eliminar_partido(self, id_partido):
         BM.eliminar(id_partido)
+
+    def obtener_partido_por_id(self, id_partido):
+        return BM.obtener_por_id(self.tabla, id_partido)

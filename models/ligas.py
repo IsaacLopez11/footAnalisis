@@ -23,3 +23,13 @@ class Liga(BM):
     # Eliminar liga por ID
     def eliminar_liga(self, id_liga):
         BM.eliminar(self.tabla,id_liga)
+
+    def listar_equipos_por_liga(self, liga_id):
+        sql = "SELECT * FROM equipos WHERE liga_id = ?"
+        return BM.consulta_general(sql, (liga_id,))
+
+    
+    def obtener_liga_por_id(self, id_liga):
+        sql = "SELECT * FROM ligas WHERE liga_id = ?"
+        return BM.consulta_general(sql, (id_liga,))
+

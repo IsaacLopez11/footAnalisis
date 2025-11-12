@@ -72,13 +72,15 @@ class BaseModel:
         conn.close()
         print(f"Registro con ID {id} eliminado de {cls}.")
 
-    def consulta_general(sql):
+    def consulta_general(sql, params):
         """Consulta general."""
         conn = obtener_conexion()
         cur = conn.cursor()
-        cur.execute(sql)
-        resultados = cur.fetchall()
+        sql_string = sql
+        print(params)
+        cur.execute(sql_string, params or ())
         conn.commit()
+        resultados = cur.fetchall()
         conn.close()
         print("Consulta realizada")
         return [dict(fila) for fila in resultados]  

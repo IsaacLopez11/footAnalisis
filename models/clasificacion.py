@@ -30,3 +30,7 @@ class Clasificacion(BM):
 
     def eliminar_clasificacion(self, id_clasificacion):
         BM.eliminar(id_clasificacion)
+
+    def listar_estadisticas_por_partido(self, id_partido):
+        sql = "SELECT * FROM estadisticas_partido WHERE partido_id = ?"
+        return BM.consulta_general(sql, (id_partido,))
