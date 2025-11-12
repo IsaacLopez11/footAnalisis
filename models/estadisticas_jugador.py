@@ -18,7 +18,7 @@ class EstadisticasJugador(BM):
 
     # Crear estadística
     def crear_estadistica(self):
-        BM.crear(self.__dict__)
+        BM.crear("estadisticas_jugador", self.__dict__)
 
     # Listar todas
     def listar_estadisticas(self):

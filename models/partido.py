@@ -16,7 +16,11 @@ class Partido(BM):
 
     # Crear partido
     def crear_partido(self):
-        BM.crear(self.__dict__)
+        """Crea un nuevo partido y devuelve su ID."""
+        partido_id = BM.crear("partidos", self.__dict__)
+        self.id = partido_id
+        return partido_id
+
 
     # Listar partidos
     def listar_partidos(self):

@@ -5,21 +5,21 @@ class BaseModel:
     tabla = ""
     campos = []
 
-    def crear(cls, datos: dict):
-        """Inserta un nuevo registro en la tabla."""
+    def crear(tabla, datos: dict):
+        """Inserta un nuevo registro en la tabla y devuelve el ID insertado."""
         conn = obtener_conexion()
-        cur = conn.cursor()
+        try:
+            cur = conn.cursor()
+            columnas = ", ".join(datos.keys())
+            valores = tuple(datos.values())
+            placeholders = ", ".join(["?"] * len(datos))
+            query = f"INSERT INTO {tabla} ({columnas}) VALUES ({placeholders})"
+            cur.execute(query, valores)
+            conn.commit()
+            return cur.lastrowid  # devuelve el id del registro insertado
+        finally:
+            conn.close()
 
-        columnas = ", ".join(datos.keys())
-        valores = tuple(datos.values())
-        placeholders = ", ".join(["?"] * len(datos))
-
-        query = f"INSERT INTO {cls} ({columnas}) VALUES ({placeholders})"
-        cur.execute(query, valores)
-
-        conn.commit()
-        conn.close()
-        print(f"Registro creado en '{cls}' correctamente.")
     
     
     def obtener_todos(cls):
@@ -72,15 +72,17 @@ class BaseModel:
         conn.close()
         print(f"Registro con ID {id} eliminado de {cls}.")
 
-    def consulta_general(sql, params):
-        """Consulta general."""
+    def consulta_general(sql, params=None):
+        """Ejecuta una consulta SQL general y devuelve una lista de diccionarios."""
         conn = obtener_conexion()
         cur = conn.cursor()
-        sql_string = sql
-        print(params)
-        cur.execute(sql_string, params or ())
-        conn.commit()
+
+        print("🧠 Ejecutando:", sql)
+        print("🔸 Parámetros:", params)
+
+        cur.execute(sql, params or ())
         resultados = cur.fetchall()
         conn.close()
-        print("Consulta realizada")
-        return [dict(fila) for fila in resultados]  
+
+        print("✅ Consulta realizada")
+        return [dict(fila) for fila in resultados]

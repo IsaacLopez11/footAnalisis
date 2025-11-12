@@ -26,7 +26,7 @@ class EstadisticasPartido(BM):
 
     # CRUD
     def crear_estadistica(self):
-        BM.crear(self.__dict__)
+        BM.crear("estadisticas_partido", self.__dict__)
 
     def listar_estadisticas(self):
         estadisticas = BM.obtener_todos(self.tabla)
