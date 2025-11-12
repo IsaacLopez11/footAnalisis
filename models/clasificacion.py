@@ -23,7 +23,7 @@ class Clasificacion(BM):
 
     def listar_clasificacion(self):
         clasificacion = BM.obtener_todos(self.tabla)
-        print(clasificacion)
+        return clasificacion
 
     def editar_clasificacion(self, id_clasificacion):
         BM.actualizar(id_clasificacion, self.__dict__)

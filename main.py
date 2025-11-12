@@ -11,6 +11,12 @@ from controladores.partido import jugar_partido
 from datetime import date
 # === Ejemplo de uso ===
 if __name__ == "__main__":
+    
+    equipo = Equipo().listar_equipos()
+    print(equipo)
+    equipo = Equipo().obtener_equipo_por_id(3)
+    print(equipo)
+    print(equipo['nombre'])
     #Instancia interfaz
     # interfaz = Interfaz()
     # interfaz.menu()
@@ -75,57 +81,57 @@ if __name__ == "__main__":
      # nueva = Liga("Primera División", 2025)
      # nueva.crear_liga()
 
-     # Listar ligas
-     ligas = Liga()
-     ligas.listar_ligas()
+#      # Listar ligas
+#      ligas = Liga()
+#      ligas.listar_ligas()
 
-     # Editar liga
-     # actualizada = Liga("Primera División", 2026)
-     # actualizada.editar_liga(2)
+#      # Editar liga
+#      # actualizada = Liga("Primera División", 2026)
+#      # actualizada.editar_liga(2)
 
-     # Eliminar liga
-     # ligas.eliminar_liga(1)
+#      # Eliminar liga
+#      # ligas.eliminar_liga(1)
 
 
-# --- 1️⃣ Crear algunos equipos de ejemplo ---
-     equipo1 = Equipo(nombre="Brisas del Lago", ciudad="Punta Gorda",
-                         estadio="La Cancha del Liceo", capacidad_estadio=1000, liga_id=1)
-     # equipo1.crear_equipo()
+# # --- 1️⃣ Crear algunos equipos de ejemplo ---
+#      equipo1 = Equipo(nombre="Brisas del Lago", ciudad="Punta Gorda",
+#                          estadio="La Cancha del Liceo", capacidad_estadio=1000, liga_id=1)
+#      # equipo1.crear_equipo()
 
-     equipo2 = Equipo(nombre="Los Halcones", ciudad="Ciudad Alta",
-                         estadio="Estadio Central", capacidad_estadio=1200, liga_id=1)
-     # equipo2.crear_equipo()
+#      equipo2 = Equipo(nombre="Los Halcones", ciudad="Ciudad Alta",
+#                          estadio="Estadio Central", capacidad_estadio=1200, liga_id=1)
+#      # equipo2.crear_equipo()
 
-     # --- 2️⃣ Crear jugadores para cada equipo ---
-     jugador1 = Jugador(nombre="Juan Perez", edad=22, posicion="Delantero", equipo_id=1)
-     # jugador1.crear_jugador()
+#      # --- 2️⃣ Crear jugadores para cada equipo ---
+#      jugador1 = Jugador(nombre="Juan Perez", edad=22, posicion="Delantero", equipo_id=1)
+#      # jugador1.crear_jugador()
 
-     jugador2 = Jugador(nombre="Carlos Gomez", edad=24, posicion="Mediocampo", equipo_id=2)
-     # jugador2.crear_jugador()
+#      jugador2 = Jugador(nombre="Carlos Gomez", edad=24, posicion="Mediocampo", equipo_id=2)
+#      # jugador2.crear_jugador()
 
-     # --- 3️⃣ Crear atributos de los jugadores ---
-     atributos1 = AtributosJugador(
-          jugador_id=1,
-          desmarques=80, remate=90, tiros_lejanos=70,
-          tecnica=85, pase=80, 
-          marcaje=50, entradas=40,
-          colocacion=70, vision=75, agresividad=60,
-          agarre=0, despeje=0, mando_area=0
-     )
-     atributos1.crear_atributos()
+#      # --- 3️⃣ Crear atributos de los jugadores ---
+#      atributos1 = AtributosJugador(
+#           jugador_id=1,
+#           desmarques=80, remate=90, tiros_lejanos=70,
+#           tecnica=85, pase=80, 
+#           marcaje=50, entradas=40,
+#           colocacion=70, vision=75, agresividad=60,
+#           agarre=0, despeje=0, mando_area=0
+#      )
+#      atributos1.crear_atributos()
 
-     atributos2 = AtributosJugador(
-          jugador_id=2,
-          desmarques=75, remate=70, tiros_lejanos=65,
-          tecnica=88, pase=85, 
-          marcaje=60, entradas=55,
-          colocacion=80, vision=82, agresividad=70,
-          agarre=0, despeje=0, mando_area=0
-     )
-     atributos2.crear_atributos()
+#      atributos2 = AtributosJugador(
+#           jugador_id=2,
+#           desmarques=75, remate=70, tiros_lejanos=65,
+#           tecnica=88, pase=85, 
+#           marcaje=60, entradas=55,
+#           colocacion=80, vision=82, agresividad=70,
+#           agarre=0, despeje=0, mando_area=0
+#      )
+#      atributos2.crear_atributos()
 
-     # --- 4️⃣ Simular un partido ---
-     fecha_partido = date.today()
-     jugar_partido(equipo_local_id=1, equipo_visitante_id=2, fecha=fecha_partido, liga_id=1)
+#      # --- 4️⃣ Simular un partido ---
+#      fecha_partido = date.today()
+#      jugar_partido(equipo_local_id=1, equipo_visitante_id=2, fecha=fecha_partido, liga_id=1)
 
-     print("Partido simulado y estadísticas generadas.")
+#      print("Partido simulado y estadísticas generadas.")

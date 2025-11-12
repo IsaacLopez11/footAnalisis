@@ -29,17 +29,17 @@ class BaseModel:
         cur.execute(f"SELECT * FROM {cls}")
         registros = cur.fetchall()
         conn.close()
-        return registros
+        return [dict(registro) for registro in registros]
 
     
-    def obtener_por_id(cls, id):
+    def obtener_por_id(tabla, id):
         """Devuelve un registro específico por ID."""
         conn = obtener_conexion()
         cur = conn.cursor()
-        cur.execute(f"SELECT * FROM {cls} WHERE id = ?", (id,))
+        cur.execute(f"SELECT * FROM {tabla} WHERE id = ?", (id,))
         registro = cur.fetchone()
         conn.close()
-        return registro
+        return dict(registro) if registro else None
 
     
     def actualizar(cls, id, datos:dict):
@@ -71,3 +71,14 @@ class BaseModel:
         conn.commit()
         conn.close()
         print(f"Registro con ID {id} eliminado de {cls}.")
+
+    def consulta_general(sql):
+        """Consulta general."""
+        conn = obtener_conexion()
+        cur = conn.cursor()
+        cur.execute(sql)
+        resultados = cur.fetchall()
+        conn.commit()
+        conn.close()
+        print("Consulta realizada")
+        return [dict(fila) for fila in resultados]  

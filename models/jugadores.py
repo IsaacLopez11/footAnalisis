@@ -16,7 +16,7 @@ class Jugador(BM):
     # Listar todos los jugadores
     def listar_jugadores(self):
         jugadores = BM.obtener_todos(self.tabla)
-        print(jugadores)
+        return jugadores
 
     # Eliminar jugador por ID
     def eliminar_jugador(self, id_jugador):

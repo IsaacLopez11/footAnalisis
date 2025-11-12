@@ -14,7 +14,7 @@ class Liga(BM):
     # Listar todas las ligas
     def listar_ligas(self):
         ligas = BM.obtener_todos(self.tabla)
-        print(ligas)
+        return ligas
 
     # Editar liga por ID
     def editar_liga(self, id_liga):

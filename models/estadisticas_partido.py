@@ -30,7 +30,7 @@ class EstadisticasPartido(BM):
 
     def listar_estadisticas(self):
         estadisticas = BM.obtener_todos(self.tabla)
-        print(estadisticas)
+        return estadisticas
 
     def editar_estadistica(self, id_estadistica):
         BM.actualizar(id_estadistica, self.__dict__)

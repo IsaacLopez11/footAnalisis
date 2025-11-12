@@ -21,7 +21,7 @@ class Partido(BM):
     # Listar partidos
     def listar_partidos(self):
         partidos = BM.obtener_todos(self.tabla)
-        print(partidos)
+        return partidos
 
     # Editar partido
     def editar_partido(self, id_partido):

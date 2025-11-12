@@ -43,7 +43,7 @@ class AtributosJugador(BM):
     # Listar atributos
     def listar_atributos(self):
         atributos = BM.obtener_todos(self.tabla)
-        print(atributos)
+        return atributos
 
     # Editar atributos
     def editar_atributos(self, id_atributos):

@@ -23,7 +23,7 @@ class EstadisticasJugador(BM):
     # Listar todas
     def listar_estadisticas(self):
         estadisticas = BM.obtener_todos(self.tabla)
-        print(estadisticas)
+        return estadisticas
 
     # Editar
     def editar_estadistica(self, id_estadistica):

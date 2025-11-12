@@ -6,6 +6,7 @@ class Equipo(BM):
 
     def __init__(self,  nombre=None, ciudad=None, estadio=None, capacidad_estadio=None, liga_id=None):
         super().__init__()  # nombre de la tabla
+        self.id= None
         self.nombre = nombre
         self.ciudad = ciudad
         self.estadio = estadio
@@ -14,7 +15,7 @@ class Equipo(BM):
 
     def listar_equipos(self):
         equipos = BM.obtener_todos(self.tabla)
-        print( equipos)
+        return equipos
 
     def crear_equipo(self):
         BM.crear(self.tabla,self.__dict__)
@@ -26,7 +27,9 @@ class Equipo(BM):
         BM.actualizar(id_equipo, self.__dict__)
 
     def obtener_equipo_por_id(self, id):
-        print( BM.obtener_por_id(self.tabla, id))
+        return BM.obtener_por_id(self.tabla, id)
 
+    def listar_jugadores(self):
+        return 0
     
 
