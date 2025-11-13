@@ -11,16 +11,22 @@ from controladores.partido import jugar_partido
 from datetime import date
 from models.partido import Partido
 from controladores.partido import jugar_partido
+from ui.interfaz_foot import Interfaz
+import tkinter as tk
+from ui.interfaz_foot import Interfaz
 # === Ejemplo de uso ===
 if __name__ == "__main__":
     
+    root = tk.Tk()
+    app = Interfaz(root)
+    root.mainloop()
    # Crear y simular un partido
-    resumen = jugar_partido(equipo_local_id=1, equipo_visitante_id=2, fecha="2025-11-12", liga_id=1)
+#     resumen = jugar_partido(equipo_local_id=1, equipo_visitante_id=2, fecha="2025-11-12", liga_id=1)
 
-    # Ver resultados
-    print("Resultado final:", resumen["resultado"])
-    print("Estadísticas jugadores:", resumen["estadisticas_jugadores"])
-    print("Estadísticas del partido:", resumen["estadisticas_partido"])
+#     # Ver resultados
+#     print("Resultado final:", resumen["resultado"])
+#     print("Estadísticas jugadores:", resumen["estadisticas_jugadores"])
+#     print("Estadísticas del partido:", resumen["estadisticas_partido"])
 
 
     # equipo = Equipo().listar_equipos()

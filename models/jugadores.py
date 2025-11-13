@@ -42,3 +42,7 @@ class Jugador(BM):
         sql = "SELECT * FROM estadisticas_jugador WHERE jugador_id = ?"
         return BM.consulta_general(sql, (id_jugador,))
 
+    def get_nombre(self, jugador_id):
+            # Aquí recuperas el nombre desde la base de datos
+            jugador = self.obtener_por_id(jugador_id)
+            return jugador["nombre"] if jugador else f"Jugador {jugador_id}"

@@ -38,9 +38,13 @@ class EstadisticasJugador(BM):
         conn = obtener_conexion()
         cur = conn.cursor()
         cur.execute(f"SELECT * FROM {self.tabla} WHERE jugador_id = ?", (jugador_id,))
-        resultado = cur.fetchall()
+        resultados = cur.fetchall()
         conn.close()
-        return resultado
+        
+        # Convertimos cada fila en diccionario
+        estadisticas = [dict(registro) for registro in resultados] if resultados else []
+        return estadisticas
+
     
     def obtener_estadisticas_de_jugador_por_id_partido(self, id_partido, id_jugador):
         sql = "SELECT * FROM estadisticas_jugador WHERE partido_id = ? AND jugador_id = ?"
