@@ -11,16 +11,22 @@ from controladores.partido import jugar_partido
 from datetime import date
 from models.partido import Partido
 from controladores.partido import jugar_partido
+from ui import interfaz_foot as inter
+import tkinter as tk
 # === Ejemplo de uso ===
-if __name__ == "__main__":
-    
-   # Crear y simular un partido
-    resumen = jugar_partido(equipo_local_id=1, equipo_visitante_id=2, fecha="2025-11-12", liga_id=1)
 
-    # Ver resultados
-    print("Resultado final:", resumen["resultado"])
-    print("Estadísticas jugadores:", resumen["estadisticas_jugadores"])
-    print("Estadísticas del partido:", resumen["estadisticas_partido"])
+    
+if __name__ == "__main__":
+    root = tk.Tk()
+    interfaz = inter.Interfaz(root)  # <-- Aquí usas InterfazFoot
+    root.mainloop() # Ejecuta el bucle principal de Tkinte
+   # Crear y simular un partido
+#     resumen = jugar_partido(equipo_local_id=1, equipo_visitante_id=2, fecha="2025-11-12", liga_id=1)
+
+#     # Ver resultados
+#     print("Resultado final:", resumen["resultado"])
+#     print("Estadísticas jugadores:", resumen["estadisticas_jugadores"])
+#     print("Estadísticas del partido:", resumen["estadisticas_partido"])
 
 
     # equipo = Equipo().listar_equipos()

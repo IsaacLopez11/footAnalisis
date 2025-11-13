@@ -1,51 +1,111 @@
+import matplotlib.pyplot as plt
+from models.partido import Partido
 from models.base_model import BaseModel as BM
 from bd.conexion import obtener_conexion
+class EstadisticasJugador:
+    def __init__(self, partidos):
+        self.partidos = partidos
+        self.tabla = "estadisticas_jugadores"
 
-class EstadisticasJugador(BM):
-    tabla = "estadisticas_jugador"
-
-    def __init__(self, partido_id=None, jugador_id=None, goles=0, asistencias=0,
-                 tarjetas_amarillas=0, tarjetas_rojas=0, minutos_jugados=0, calificacion=0.0):
-
-        self.partido_id = partido_id
-        self.jugador_id = jugador_id
-        self.goles = goles
-        self.asistencias = asistencias
-        self.tarjetas_amarillas = tarjetas_amarillas
-        self.tarjetas_rojas = tarjetas_rojas
-        self.minutos_jugados = minutos_jugados
-        self.calificacion = calificacion
-
-    # Crear estadística
-    def crear_estadistica(self):
-        BM.crear("estadisticas_jugador", self.__dict__)
-
-    # Listar todas
     def listar_estadisticas(self):
-        estadisticas = BM.obtener_todos(self.tabla)
-        return estadisticas
+        """
+        Devuelve todas las estadísticas de todos los jugadores como lista de diccionarios.
+        """
+        sql = f"SELECT * FROM {self.tabla}"
+        return BM.consulta_general(sql)
+            
+   
+    def lista_goleadores(estadisticas):
+        goles_totales = {}
+        for estad in estadisticas:
+            jugador = estad["jugador_id"]
+            goles_totales[jugador] = goles_totales.get(jugador, 0) + estad.get("goles", 0)
+        return sorted(goles_totales.items(), key=lambda x: x[1], reverse=True)
 
-    # Editar
-    def editar_estadistica(self, id_estadistica):
-        BM.actualizar(id_estadistica, self.__dict__)
 
-    # Eliminar
-    def eliminar_estadistica(self, id_estadistica):
-        BM.eliminar(id_estadistica)
+    def lista_asistencias(estadisticas):
+        asistencias_totales = {}
+        for estad in estadisticas:
+            jugador = estad["jugador_id"]
+            asistencias_totales[jugador] = asistencias_totales.get(jugador, 0) + estad.get("asistencias", 0)
+        return sorted(asistencias_totales.items(), key=lambda x: x[1], reverse=True)
 
-    # Obtener estadísticas de un jugador específico
-    def obtener_estadisticas_por_jugador(self, jugador_id):
-        conn = obtener_conexion()
-        cur = conn.cursor()
-        cur.execute(f"SELECT * FROM {self.tabla} WHERE jugador_id = ?", (jugador_id,))
-        resultado = cur.fetchall()
-        conn.close()
-        return resultado
-    
-    def obtener_estadisticas_de_jugador_por_id_partido(self, id_partido, id_jugador):
-        sql = "SELECT * FROM estadisticas_jugador WHERE partido_id = ? AND jugador_id = ?"
-        return BM.consulta_general(sql, (id_partido, id_jugador))
 
-    def obtener_estadisticas_de_todos_jugadores_por_id_partido(self, id_partido, id_jugador):
-        sql = "SELECT * FROM estadisticas_jugador WHERE partido_id = ? AND jugador_id = ?"
-        return BM.consulta_general(sql, (id_partido, id_jugador))
+    def lista_minutos(estadisticas):
+        minutos_totales = {}
+        for estad in estadisticas:
+            jugador = estad["jugador_id"]
+            minutos_totales[jugador] = minutos_totales.get(jugador, 0) + estad.get("minutos_jugados", 0)
+        return sorted(minutos_totales.items(), key=lambda x: x[1], reverse=True)
+
+
+    def lista_calificaciones(estadisticas):
+        calificaciones = {}
+        contador = {}
+        for estad in estadisticas:
+            jugador = estad["jugador_id"]
+            calificaciones[jugador] = calificaciones.get(jugador, 0) + estad.get("calificacion", 0)
+            contador[jugador] = contador.get(jugador, 0) + 1
+        # Calificación media
+        return sorted(
+            ((jugador, calificaciones[jugador] / contador[jugador]) for jugador in calificaciones),
+            key=lambda x: x[1],
+            reverse=True
+        )
+
+
+    def lista_tarjetas(estadisticas):
+        amarillas = {}
+        rojas = {}
+        for estad in estadisticas:
+            jugador = estad["jugador_id"]
+            amarillas[jugador] = amarillas.get(jugador, 0) + estad.get("tarjetas_amarillas", 0)
+            rojas[jugador] = rojas.get(jugador, 0) + estad.get("tarjetas_rojas", 0)
+        return (
+            sorted(amarillas.items(), key=lambda x: x[1], reverse=True),
+            sorted(rojas.items(), key=lambda x: x[1], reverse=True)
+        )
+
+    # ------------------------
+    # Funciones de gráficos
+    # ------------------------
+
+    def graficar_barras(datos, titulo, ylabel, color='blue'):
+        if not datos:
+            print(f"⚠️ No hay datos para {titulo}")
+            return
+        jugadores, valores = zip(*datos)
+        plt.figure(figsize=(10,6))
+        plt.bar(jugadores, valores, color=color)
+        plt.title(titulo)
+        plt.xlabel("Jugador")
+        plt.ylabel(ylabel)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+
+    # ------------------------
+    # Función principal
+    # ------------------------
+
+    def analisis_basico_jugadores(estadisticas):
+        # Goleadores
+        goleadores = self.lista_goleadores(estadisticas)
+        graficar_barras(goleadores[:10], "Goleadores de la Temporada", "Goles", color='green')
+
+        # Asistencias
+        asistencias = lista_asistencias(estadisticas)
+        graficar_barras(asistencias[:10], "Asistentes de la Temporada", "Asistencias", color='blue')
+
+        # Minutos jugados
+        minutos = lista_minutos(estadisticas)
+        graficar_barras(minutos[:10], "Minutos Jugados", "Minutos", color='orange')
+
+        # Calificación media
+        calificaciones = lista_calificaciones(estadisticas)
+        graficar_barras(calificaciones[:10], "Calificación Media", "Calificación", color='purple')
+
+        # Tarjetas
+        amarillas, rojas = lista_tarjetas(estadisticas)
+        graficar_barras(amarillas[:10], "Tarjetas Amarillas", "Cantidad", color='yellow')
+        graficar_barras(rojas[:10], "Tarjetas Rojas", "Cantidad", color='red')

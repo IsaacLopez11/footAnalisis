@@ -3,7 +3,8 @@ from models.base_model import BaseModel as BM
 class Jugador(BM):
     tabla = "jugadores"
 
-    def __init__(self, nombre=None, edad=None, posicion=None, equipo_id=None):
+    def __init__(self,id=None, nombre=None, edad=None, posicion=None, equipo_id=None):
+        self.id = id
         self.nombre = nombre
         self.edad = edad
         self.posicion = posicion
@@ -42,3 +43,9 @@ class Jugador(BM):
         sql = "SELECT * FROM estadisticas_jugador WHERE jugador_id = ?"
         return BM.consulta_general(sql, (id_jugador,))
 
+    def get_nombre(self, jugador_id):
+            # Aquí recuperas el nombre desde la base de datos
+            jugador = self.obtener_por_id(jugador_id)
+            return jugador["nombre"] if jugador else f"Jugador {jugador_id}"
+    
+    
