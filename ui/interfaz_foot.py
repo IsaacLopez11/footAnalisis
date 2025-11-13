@@ -278,37 +278,66 @@ class Interfaz:
     def ejecutar_analisis_goleadores_90(self):
         jugadores = Jugador().listar_jugadores()
         jugadores_dict = {j['id']: j['nombre'] for j in jugadores}
+
         estadisticas = EstadisticasJugador().listar_estadisticas()
-        goleadores_90 = ab.lista_goleadores_por_90(estadisticas)
+        # Es importante pasar la key que quieres calcular
+        goleadores_90 = ab.calcular_por_90_minutos(estadisticas, key="goles")
+        
+        # Cambiar IDs por nombres
         goleadores_90_nombres = [(jugadores_dict.get(jid, f"Jugador {jid}"), g) for jid, g in goleadores_90]
-        ab.graficar_barras(goleadores_90_nombres[:10], "Goleadores /90 Minutos", "Goles/90", color='green')
+
+        ab.graficar_barras(
+            goleadores_90_nombres[:10], 
+            "Goleadores /90 Minutos", 
+            "Goles/90", 
+            color='green'
+        )
 
 
     def ejecutar_analisis_asistencias_90(self):
         jugadores = Jugador().listar_jugadores()
         jugadores_dict = {j['id']: j['nombre'] for j in jugadores}
-        estadisticas = EstadisticasJugador().listar_estadisticas()
-        asistencias_90 = ab.lista_asistencias_por_90(estadisticas)
-        asistencias_90_nombres = [(jugadores_dict.get(jid, f"Jugador {jid}"), a) for jid, a in asistencias_90]
-        ab.graficar_barras(asistencias_90_nombres[:10], "Asistencias /90 Minutos", "Asistencias/90", color='blue')
 
+        estadisticas = EstadisticasJugador().listar_estadisticas()
+        asistencias_90 = ab.calcular_por_90_minutos(estadisticas, key="asistencias")
+        asistencias_90_nombres = [(jugadores_dict.get(jid, f"Jugador {jid}"), a) for jid, a in asistencias_90]
+
+        ab.graficar_barras(
+            asistencias_90_nombres[:10],
+            "Asistencias /90 Minutos",
+            "Asistencias/90",
+            color='blue'
+        )
 
     def ejecutar_analisis_tarjetas_amarillas_90(self):
         jugadores = Jugador().listar_jugadores()
         jugadores_dict = {j['id']: j['nombre'] for j in jugadores}
-        estadisticas = EstadisticasJugador().listar_estadisticas()
-        amarillas_90 = ab.lista_tarjetas_amarillas_por_90(estadisticas)
-        amarillas_90_nombres = [(jugadores_dict.get(jid, f"Jugador {jid}"), t) for jid, t in amarillas_90]
-        ab.graficar_barras(amarillas_90_nombres[:10], "Tarjetas Amarillas /90 Minutos", "Amarillas/90", color='yellow')
 
+        estadisticas = EstadisticasJugador().listar_estadisticas()
+        amarillas_90 = ab.calcular_por_90_minutos(estadisticas, key="tarjetas_amarillas")
+        amarillas_90_nombres = [(jugadores_dict.get(jid, f"Jugador {jid}"), t) for jid, t in amarillas_90]
+
+        ab.graficar_barras(
+            amarillas_90_nombres[:10],
+            "Tarjetas Amarillas /90 Minutos",
+            "Amarillas/90",
+            color='yellow'
+        )
 
     def ejecutar_analisis_tarjetas_rojas_90(self):
         jugadores = Jugador().listar_jugadores()
         jugadores_dict = {j['id']: j['nombre'] for j in jugadores}
+
         estadisticas = EstadisticasJugador().listar_estadisticas()
-        rojas_90 = ab.lista_tarjetas_rojas_por_90(estadisticas)
+        rojas_90 = ab.calcular_por_90_minutos(estadisticas, key="tarjetas_rojas")
         rojas_90_nombres = [(jugadores_dict.get(jid, f"Jugador {jid}"), t) for jid, t in rojas_90]
-        ab.graficar_barras(rojas_90_nombres[:10], "Tarjetas Rojas /90 Minutos", "Rojas/90", color='red')
+
+        ab.graficar_barras(
+            rojas_90_nombres[:10],
+            "Tarjetas Rojas /90 Minutos",
+            "Rojas/90",
+            color='red'
+        )
 
 
 # -----------------------------------------------------------------------------

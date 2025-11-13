@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_PATH = "/home/isaac/desarrollo/footAnalisis/data/footmanager.db"
+DB_PATH = "data/footmanager.db"
 
 def obtener_conexion():
     """Devuelve una conexión nueva a la base de datos con timeout y control de fila."""

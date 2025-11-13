@@ -55,15 +55,19 @@ def lista_tarjetas(estadisticas):
         sorted(rojas.items(), key=lambda x: x[1], reverse=True)
     )
 
-
+# Función genérica para calcular por 90 minutos
 def calcular_por_90_minutos(estadisticas, key):
-    """Devuelve lista de tuplas (jugador, valor_por_90)"""
+    """
+    Devuelve una lista de tuplas (jugador_id, valor_por_90) ordenada de mayor a menor.
+    key: "goles", "asistencias", "tarjetas_amarillas", "tarjetas_rojas", etc.
+    """
     totales = {}
     minutos = {}
     for estad in estadisticas:
         jugador = estad["jugador_id"]
         totales[jugador] = totales.get(jugador, 0) + estad.get(key, 0)
         minutos[jugador] = minutos.get(jugador, 0) + estad.get("minutos_jugados", 0)
+
     por_90 = []
     for jugador in totales:
         if minutos[jugador] > 0:
@@ -71,6 +75,7 @@ def calcular_por_90_minutos(estadisticas, key):
         else:
             por_90.append((jugador, 0))
     return sorted(por_90, key=lambda x: x[1], reverse=True)
+
 # ------------------------
 # Funciones de gráficos
 # ------------------------
